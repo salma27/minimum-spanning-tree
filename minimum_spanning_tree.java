@@ -14,7 +14,7 @@ public class minimum_spanning_tree {
 		int ver = sc.nextInt();
 		
 		for(int i = 0; i < ver; i++) {
-			System.out.print("Vertix " + i + " : ");
+			System.out.print("Vertix " + (i + 1) + " : ");
 			Vertix vertix = new Vertix(sc.next());
 			vertices.add(vertix);
 		}
@@ -23,28 +23,39 @@ public class minimum_spanning_tree {
 		int edg = sc.nextInt();
 		for(int i = 0 ; i < edg; i++) {
 			Edge edge = new Edge();
-			System.out.print("Edge " + i + "'s value = ");
+			System.out.print("Edge " + (i + 1) + "'s value = ");
 			edge.value = sc.nextInt();
-			System.out.print("Edge " + i + "'s starting point : ");
-			edge.start = new Vertix(sc.next());
-			System.out.print("Edge " + i + "'s ending point : ");
-			edge.end = new Vertix(sc.next());
+			System.out.print("Edge " + (i + 1) + "'s starting point : ");
+			//edge.start = new Vertix(sc.next());
+			edge.start = getVertix(sc.next());
+			System.out.print("Edge " + (i + 1) + "'s ending point : ");
+			edge.end = getVertix(sc.next());
+			edges.add(edge);
 		}
 		minSpanTree();
+		System.out.println(">>>>>>>===========================================<<<<<<<");
+		System.out.println("Number of Edges in the minimum spanning tree " + result.size() + ", Which are : ");
 		for(int i = 0 ; i < result.size() ; i++) {
-			System.out.println("Edge's value : " + result.elementAt(i).value);
-			System.out.println("Edge's start : " + result.elementAt(i).start.name);
-			System.out.println("Edge's end : " + result.elementAt(i).end.name);
+			System.out.print("Edge's value : " + result.elementAt(i).value);
+			System.out.print(" between " + result.elementAt(i).start.name);
+			System.out.println(" and " + result.elementAt(i).end.name);
 		}
 	}
-	
+	public static Vertix getVertix(String name) {
+		for(int i = 0 ; i < vertices.size(); i++) {
+			if(vertices.elementAt(i).name.equals(name))
+				return vertices.elementAt(i);
+		}
+		return null;
+	}
 	public static void minSpanTree() {
 		edges.sort(Comparator.comparing(Edge::getValue));
 		for(int i = 0 ; i < edges.size() ; i++) {
-			if(edges.elementAt(i).start.pass && edges.elementAt(i).end.pass)
+			if(vertices.elementAt(vertices.indexOf(edges.elementAt(i).start)).pass
+					&& vertices.elementAt(vertices.indexOf(edges.elementAt(i).end)).pass)
 				continue;
-			edges.elementAt(i).start.pass = true;
-			edges.elementAt(i).end.pass = true;
+			vertices.elementAt(vertices.indexOf(edges.elementAt(i).start)).pass = true;
+			vertices.elementAt(vertices.indexOf(edges.elementAt(i).end)).pass = true;
 			result.add(edges.elementAt(i));
 		}
 
