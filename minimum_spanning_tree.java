@@ -24,37 +24,20 @@ public class minimum_spanning_tree {
 
 
 
-    public static void main(String[] args) {
-        System.out.print("Please enter the number of vertices :");
-        Scanner sc = new Scanner(System.in);
-        int ver = sc.nextInt();
-
-        for(int i = 0; i < ver; i++) {
-            System.out.print("Vertix " + (i + 1) + " : ");
-            Vertix vertix = new Vertix(sc.next());
-            vertices.add(vertix);
-        }
-        //System.out.println();
-        System.out.print("Please enter the number of edges : ");
-        int edg = sc.nextInt();
-        for(int i = 0 ; i < edg; i++) {
-            Edge edge = new Edge();
-            System.out.print("Edge " + (i + 1) + "'s value = ");
-            edge.value = sc.nextInt();
-            System.out.print("Edge " + (i + 1) + "'s starting point : ");
-            //edge.start = new Vertix(sc.next());
-            edge.start = getVertix(sc.next());
-            System.out.print("Edge " + (i + 1) + "'s ending point : ");
-            edge.end = getVertix(sc.next());
-            edges.add(edge);
-        }
+    public static String main(Vector<Vertix> vert, Vector<Edge> ee) {
+        vertices = vert;
+        edges = ee;
         minSpanTree();
-        System.out.println(">>>>>>>===========================================<<<<<<<");
-        System.out.println("Number of Edges in the minimum spanning tree " + result.size() + ", Which are : ");
+        //System.out.println(">>>>>>>================================================<<<<<<<");
+        String out = "";
+        out += "\n";
+        out += "Number of Edges in the minimum spanning tree " + result.size() + ", Which are : ";
+        out += "\n\n";
         for(int i = 0 ; i < result.size() ; i++) {
-            System.out.print("Edge's value : " + result.elementAt(i).value);
-            System.out.print(" between " + result.elementAt(i).start.name);
-            System.out.println(" and " + result.elementAt(i).end.name);
+            out += "Edge's value : " + result.elementAt(i).value
+                    + " between " + result.elementAt(i).start.name
+                    + " and " + result.elementAt(i).end.name
+                    + "\n";
         }
 
         for(int i = 0 ; i < vertices.size(); i++){
@@ -95,7 +78,7 @@ public class minimum_spanning_tree {
         frame.setVisible(true);
 
 
-        //System.out.println("graph: " +  graph);
+        return out;
 
     }
     public static Vertix getVertix(String name) {
