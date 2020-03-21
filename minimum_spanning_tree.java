@@ -69,10 +69,10 @@ public class minimum_spanning_tree {
         Transformer<String, Paint> vertexPaint = new Transformer<String, Paint>() {
             @Override
             public Paint transform(String s) {
-                return Color.GREEN;
+                return Color.CYAN;
             }
         };
-        float dash[] = {0.5f};
+        float dash[] = {1.0f};
         final Stroke edgeStroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
         Transformer<Integer, Stroke> edgeStrokeTransformer = new Transformer<Integer, Stroke>(){
