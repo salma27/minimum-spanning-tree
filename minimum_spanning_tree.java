@@ -19,8 +19,8 @@ public class minimum_spanning_tree {
     public static Vector<Vertix> vertices = new Vector<Vertix>();
     public static Vector<Edge> edges = new Vector<Edge>();
     public static Vector<Edge> result = new Vector<Edge>();
-    public static Graph<String, Integer> graph = new SparseMultigraph<String, Integer>();
-    public static Layout<String, Integer> layout = new CircleLayout<>(graph);
+    public static Graph<String, Edge> graph = new SparseMultigraph<String, Edge>();
+    public static Layout<String, Edge> layout = new CircleLayout<>(graph);
 
 
 
@@ -44,10 +44,10 @@ public class minimum_spanning_tree {
             graph.addVertex(vertices.elementAt(i).name);
         }
         for(int i = 0 ; i < result.size(); i++){
-            graph.addEdge(result.elementAt(i).value, result.elementAt(i).start.name, result.elementAt(i).end.name);
+            graph.addEdge(result.elementAt(i), result.elementAt(i).start.name, result.elementAt(i).end.name);
         }
         layout.setSize(new Dimension(300, 300));
-        BasicVisualizationServer<String, Integer> vv = new BasicVisualizationServer<String, Integer>(layout);
+        BasicVisualizationServer<String, Edge> vv = new BasicVisualizationServer<String, Edge>(layout);
         vv.setPreferredSize(new Dimension(350, 350));
         Transformer<String, Paint> vertexPaint = new Transformer<String, Paint>() {
             @Override
@@ -64,11 +64,16 @@ public class minimum_spanning_tree {
             }
         };
         vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
-        vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
+        //vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
-
+        
+        vv.getRenderContext().setEdgeLabelTransformer(new Transformer<Edge, String>(){
+        	public String transform(Edge e) {
+        		return "" + e.value;
+        	}
+        });
 
 
         JFrame frame = new JFrame("Minimum Spanning Tree");
