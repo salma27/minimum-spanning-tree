@@ -116,20 +116,26 @@ public class GUI {
         btnPressHereAfter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Integer value = Integer.parseInt(edgeValue.getText());
-                Edge edge = new Edge();
+                boolean ss = false;
+                boolean ee = false;
+            	Edge edge = new Edge();
                 edge.value = Integer.parseInt(edgeValue.getText());
                 //edge.start = getVertix(edgeStart.getText());
                 //edge.end = getVertix(edgeEnd.getText());
                 for(int i = 0 ; i < vertices.size(); i++) {
-                    if(vertices.elementAt(i).name.equals(edgeStart.getText()))
+                    if(vertices.elementAt(i).name.equals(edgeStart.getText())) {
                         edge.start = vertices.elementAt(i);
+                        ss = true;
+                    }
                 }
                 for(int i = 0 ; i < vertices.size(); i++) {
-                    if(vertices.elementAt(i).name.equals(edgeEnd.getText()))
+                    if(vertices.elementAt(i).name.equals(edgeEnd.getText())) {
                         edge.end = vertices.elementAt(i);
+                		ee = true;
+                	}
                 }
-
-                edges.add(edge);
+                if(ss && ee)	
+                	edges.add(edge);
             }
         });
         this.textField_1.setText(out);
